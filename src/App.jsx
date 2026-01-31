@@ -2,9 +2,11 @@ import { useState } from 'react';
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
+import TodoFilter from './components/TodoFilter';
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
 
   // Function to add a new todo
   const handleAddTodo = (text) => {
@@ -35,6 +37,20 @@ function App() {
     ));
   };
 
+  // Function to filter todos based on current filter
+  const getFilteredTodos = () => {
+    switch (filter) {
+      case 'active':
+        return todos.filter(todo => !todo.completed);
+      case 'completed':
+        return todos.filter(todo => todo.completed);
+      default:
+        return todos;
+    }
+  };
+
+  const filteredTodos = getFilteredTodos();
+
   return (
     <div className="app">
       <div className="container">
@@ -42,8 +58,13 @@ function App() {
         
         <TodoInput onAddTodo={handleAddTodo} />
         
+        <TodoFilter 
+          currentFilter={filter} 
+          onFilterChange={setFilter} 
+        />
+        
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           onToggle={handleToggleTodo}
           onDelete={handleDeleteTodo}
           onEdit={handleEditTodo}
