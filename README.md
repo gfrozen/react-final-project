@@ -1,16 +1,98 @@
-# React + Vite
+# Todo App - React Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured todo list application built with React and Vite, demonstrating core React concepts including components, state management, props, events, and data persistence.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ Add new tasks
+- ✅ Mark tasks as completed/incomplete (toggle)
+- ✅ Edit existing task descriptions
+- ✅ Delete tasks
+- ✅ Filter tasks (All / Active / Completed)
+- ✅ Active task counter
+- ✅ Clear all completed tasks at once
+- ✅ Data persistence using LocalStorage
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (v20 or higher)
+- npm (v10 or higher)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <your-repository-url>
+cd todo-app
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## Components Architecture
+
+The application is structured into 5 main components:
+
+- **App.jsx** - Main component that manages application state (todos, filter) and coordinates all child components
+- **TodoInput.jsx** - Handles user input for adding new tasks with text validation
+- **TodoList.jsx** - Displays the list of todos and renders TodoItem components for each task
+- **TodoItem.jsx** - Represents a single todo item with edit, delete, and toggle completion functionality
+- **TodoFilter.jsx** - Provides filtering buttons (All/Active/Completed) with visual active state indication
+- **TodoStats.jsx** - Displays active task count and provides clear completed functionality
+
+## Data Flow
+
+- State flows down from App to child components via props
+- Events flow up from child components to App via callback functions
+- LocalStorage automatically syncs with state changes
+
+## Known Limitations
+
+- Browser accessibility warning for form fields (does not affect functionality)
+- LocalStorage is limited to ~5MB of data
+- No server-side persistence - data is stored locally in the browser
+
+## Technologies Used
+
+- React 19
+- Vite
+- CSS3
+- LocalStorage API
+
+## Project Structure
+```
+todo-app/
+├── src/
+│   ├── components/
+│   │   ├── TodoInput.jsx
+│   │   ├── TodoInput.css
+│   │   ├── TodoList.jsx
+│   │   ├── TodoList.css
+│   │   ├── TodoItem.jsx
+│   │   ├── TodoItem.css
+│   │   ├── TodoFilter.jsx
+│   │   ├── TodoFilter.css
+│   │   ├── TodoStats.jsx
+│   │   └── TodoStats.css
+│   ├── App.jsx
+│   ├── App.css
+│   ├── index.css
+│   └── main.jsx
+├── package.json
+└── README.md
+```
+
+## License
+
+This project was created as part of a React course assignment.
