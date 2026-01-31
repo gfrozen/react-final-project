@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -8,6 +8,30 @@ import TodoStats from './components/TodoStats';
 function App() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load todos from localStorage on initial render
+  useEffect(() => {
+    const savedTodos = localStorage.getItem('todos');
+    
+    if (savedTodos) {
+      try {
+        const parsed = JSON.parse(savedTodos);
+        setTodos(parsed);
+      } catch (error) {
+        console.error('Error loading todos from localStorage:', error);
+      }
+    }
+    
+    setIsLoaded(true);
+  }, []);
+
+  // Save todos to localStorage whenever they change (after initial load)
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+  }, [todos, isLoaded]);
 
   // Function to add a new todo
   const handleAddTodo = (text) => {
