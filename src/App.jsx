@@ -3,6 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import TodoFilter from './components/TodoFilter';
+import TodoStats from './components/TodoStats';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -37,6 +38,11 @@ function App() {
     ));
   };
 
+  // Function to clear all completed todos
+  const handleClearCompleted = () => {
+    setTodos(todos.filter(todo => !todo.completed));
+  };
+
   // Function to filter todos based on current filter
   const getFilteredTodos = () => {
     switch (filter) {
@@ -69,6 +75,13 @@ function App() {
           onDelete={handleDeleteTodo}
           onEdit={handleEditTodo}
         />
+
+        {todos.length > 0 && (
+          <TodoStats 
+            todos={todos} 
+            onClearCompleted={handleClearCompleted}
+          />
+        )}
       </div>
     </div>
   );
